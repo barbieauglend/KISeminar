@@ -1,0 +1,122 @@
+\documentclass[fleqn]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath,amsfonts,amsthm,graphicx}
+\usepackage{sectsty}
+\usepackage{booktabs}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usepackage{listings}
+\usepackage{tikz, pgf, verbatim}
+\usepackage{float}
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+\usetikzlibrary{calc, arrows, shapes}
+
+\renewcommand{\thesubsubsection}{(\alph{subsubsection})}
+
+\title{Überblick Künstliche Intelligenz}
+\author{Thaís Moreira Hamasaki}
+\date{\today}
+
+\begin{document}
+
+  \lstset{language=Haskell,frame=single,basicstyle=\small\ttfamily,numbers=left,firstnumber=1}
+  \lstset{language=Prolog,frame=single,basicstyle=\small\ttfamily,numbers=left,firstnumber=1}
+
+\section{Aufgabe 01 - Tiefen- und Breitensuche}
+
+Gegeben sei der folgende Graph:\\
+\bigskip
+
+\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
+\tikzstyle{selected vertex} = [vertex, fill=red!24]
+\tikzstyle{edge} = [draw,thick,--]
+
+\begin{tikzpicture}[scale=1.8, auto,swap]
+    \foreach \pos/\name in {{(1,2)/c}, {(6,2)/j},
+                            {(0,0)/b}, {(2,0)/d}, {(4,0)/f}, {(5,0)/h}, {(7,0)/k},
+                            {(0,-2)/a}, {(2,-2)/e}, {(4,-2)/g}, {(5,-2)/i}, {(7,-2)/l}}
+                            \node[vertex] (\name) at \pos {$\name$};
+    \foreach \source/ \dest in {c/j, b/c, d/c ,f/c, f/j, h/j, k/j,
+                                         b/d, d/c, d/f, f/h, h/k,
+                                         a/b, e/d, g/f, g/d, i/h, l/k, i/k, l/h,
+                                         a/e, e/g, e/f, i/l}
+                            \path[edge] (\source) -- node[] {} (\dest);
+\end{tikzpicture}
+\bigskip
+
+Geben Sie für den obigen Graphen die Nummern $t(v)$ und $b(v)$. Starten  Sie  die  Suche  bei  Knoten $a$.  Die Adjazenzlisten der Knoten seien alphabetisch sortiert.\\
+
+
+\textbf{Lösung:}\\
+\bigskip
+\begin{tabular}{c|c c c c c c c c c c c c c}
+  v & a & b & c & d & e & f & g & h & i & j & k & l \\
+  \hline
+  $t(v)$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 11 & 10 & 12\\
+  $t(v)$ & 1 & 2 & 4 & 5 & 3 & 6 & 7 & 9 & 11 & 8 & 10 & 12\\
+\end{tabular}
+
+\section{Aufgabe 02 - Topologisches Sortieren}
+
+Ermitteln Sie für den folgenden gerichteten Graphen G = (V, A) eine topologische Sortierung der Knoten.\\
+\bigskip
+
+\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
+\tikzstyle{selected vertex} = [vertex, fill=red!24]
+\tikzstyle{edge} = [draw,thick,->]
+
+\begin{tikzpicture}[scale=1.8, auto,swap]
+    \foreach \pos/\name in {{(0,3)/a}, {(1,3)/c}, {(3,3)/f}, {(4,3)/h},
+                            {(2,2)/e}, {(5,2)/j},
+                            {(0,1)/b}, {(1,1)/d}, {(3,1)/g}, {(4,1)/i},
+                            {(5,0)/k}, {(6,0)/l}}
+                            \node[vertex] (\name) at \pos {$\name$};
+    \foreach \source/ \dest in {a/c, f/c, f/h, e/c, e/f, e/d, g/f, h/j, g/h,
+                                b/d, g/i, i/j, i/k, l/k, c/d, e/g, h/i}
+                            \path[edge] (\source) -- node[] {} (\dest);
+\end{tikzpicture}
+
+\textbf{Lösung:}\\
+\bigskip
+
+$(a, b, e, g, f, c, d, i, h, j, l, k)$ ist damit eine von vielen möglichen topologischen Ordnungen.
+
+\section{Aufgabe 03 - Algorithm}
+
+Vervollständigen Sie den Algorithmus für Hill Climbing:
+
+\begin{algorithm}
+\caption{Hill Climbing Algorithm}
+\begin{algorithmic}[1]
+\Function{Hill-Climbing}{problem} \State \textbf{returns} a solution state
+\INPUT
+\Statex $problem$ \Comment Ein Problem
+\Statex $current$  \Comment Ein Knoten
+\Statex $next$  \Comment Ein Knoten
+\State $current \gets Make-Node(Initial-State[problem])$
+\Loop
+\State $next \gets$ $A$ Wert aus $current$
+\If{$VALUE[B] C VALUE[D]$} \Return current
+\EndIf
+\State $current \gets next$
+\EndLoop
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\textbf{Lösung:}\\
+\bigskip
+A: größter, B: next, C: <, D: current
+
+
+\end{document}
